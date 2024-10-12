@@ -1,6 +1,6 @@
 // Arduino pin assignment
 #define PIN_LED  9
-#define PIN_TRIG12   // sonar sensor TRIGGER
+#define PIN_TRIG 12   // sonar sensor TRIGGER
 #define PIN_ECHO 13   // sonar sensor ECHO
 
 // configurable parameters
@@ -20,13 +20,13 @@ void setup() {
   pinMode(PIN_LED, OUTPUT);
   pinMode(PIN_TRIG, OUTPUT);  // sonar TRIGGER
   pinMode(PIN_ECHO, INPUT);   // sonar ECHO
-  digitalWrite(PIN_TRIG, LOW);  // turn-off Sonar 
-  
+  digitalWrite(PIN_TRIG, LOW);  // turn-off Sonar
+
   // initialize serial port
   Serial.begin(57600);
 }
 
-void loop() { 
+void loop() {
   float distance;
 
   // wait until next sampling time. // polling
@@ -34,7 +34,7 @@ void loop() {
     return;
 
   distance = USS_measure(PIN_TRIG, PIN_ECHO); // read distance
-  
+
   int brightness;
 
   // 거리 기반으로 LED 밝기 조절
@@ -59,7 +59,7 @@ void loop() {
   analogWrite(PIN_LED, brightness);
 
   // 출력 디버깅을 위해 Serial 모니터에 정보 출력
-  Serial.print("Distance: ");  
+  Serial.print("Distance: ");
   Serial.print(distance);
   Serial.print(" mm, LED Brightness: ");
   Serial.println(brightness);
@@ -75,7 +75,7 @@ float USS_measure(int TRIG, int ECHO)
   digitalWrite(TRIG, HIGH);
   delayMicroseconds(PULSE_DURATION);
   digitalWrite(TRIG, LOW);
-  
+
   return pulseIn(ECHO, HIGH, TIMEOUT) * SCALE; // unit: mm
 
   // Pulse duration to distance conversion example (target distance = 17.3m)
